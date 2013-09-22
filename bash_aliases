@@ -51,6 +51,7 @@ alias chrome='chromium-browswer'
 alias algs='cd ~/COURSES/Algorithms'
 alias webd='cd ~/COURSES/Web_development'
 alias netw='cd ~/COURSES/Networking'
+alias which='type -f'
 
 ### jars
 alias mars='java -jar ~/jars/Mars4_3.jar '
