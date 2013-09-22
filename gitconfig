@@ -1,0 +1,7 @@
+[user]
+	email = drdavella@gmail.com
+	name = Dan D'Avella
+[core]
+	editor = vim
+[color]
+	ui = true
