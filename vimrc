@@ -157,4 +157,10 @@ map Y y$
 nnoremap <C-L> :nohl<CR><C-L>
 
 
+" Tab navigation
+nnoremap ]t :tabnext<CR>
+nnoremap [t :tabprevious<CR>
+nnoremap ]T :tablast<CR>
+nnoremap [T :tabfirst<CR>
+
 "------------------------------------------------------------
