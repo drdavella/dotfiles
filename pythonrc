@@ -28,14 +28,14 @@ except NameError:
     atexit.register(readline.write_history_file, histfile)
     del histfile
 
+# NOT COMPATIBLE WITH PYTHON3
 # nice to have stdout unbuffered.  but needs to be idempotent
-if "<fdopen>" not in str(sys.stdout):
-  sys.stdout = os.fdopen(1,'w',0)
+#if "<fdopen>" not in str(sys.stdout):
+#  sys.stdout = os.fdopen(1,'w',0)
 
 
 ## I think it's nice to have lots of crap in the global namespace by default
 
-from urllib2 import urlopen
 import re
 from copy import copy, deepcopy
 from pprint import pprint

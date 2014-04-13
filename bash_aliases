@@ -44,14 +44,21 @@ alias pyrc='vim /home/dan/.pythonrc '
 alias src='source /home/dan/.bashrc '
 alias cll='clear; ll'
 alias ff='firefox '
-alias g='gedit '
+alias g='gedit 2>/dev/null'
 alias n='nedit '
 alias e='evince '
-alias chrome='chromium-browswer'
+alias chrome='chromium-browser'
+alias firefox='firefox 2>/dev/null'
+alias kile='kile 2>/dev/null'
+alias which='type -f'
+
+# courses
 alias algs='cd ~/COURSES/Algorithms'
 alias webd='cd ~/COURSES/Web_development'
 alias netw='cd ~/COURSES/Networking'
-alias which='type -f'
+alias nwp='cd ~/COURSES/Network_programming'
+alias mpa='cd ~/COURSES/Multiprocessor_architecture'
+alias nlp='cd ~/COURSES/NLP'
 
 ### jars
 alias mars='java -jar ~/jars/Mars4_3.jar '
@@ -61,6 +68,12 @@ alias stats='e ~/E-Books/thinkstats.pdf '
 alias nltk='e ~/E-Books/NLP_Toolkit/nltk.pdf '
 alias complexity='e ~/E-Books/thinkcomplexity.pdf '
 
+### python
+alias ipython='/usr/bin/ipython3'
+alias ipython2='/usr/bin/ipython'
+alias python='/usr/bin/python3'
+alias python2='/usr/bin/python'
+
 #### hashing
 alias md5='openssl md5 '
 alias sha1='openssl sha1 '
@@ -69,11 +82,16 @@ alias sha1='openssl sha1 '
 alias ports='netstat -tulanp '
 alias ipconfig='ifconfig '
 
+#### network programming class
+alias ptux='ssh ddavell1@ptux.apl.jhu.edu'
+alias dev4='ssh ddavell1@dev4.apl.jhu.edu'
+
 #### git stuff
 alias branch='git branch'
 alias add='git add'
 alias log='git log'
 alias commit='git commit'
+alias checkout='git checkout'
 
 #### WINE stuff
 alias tabledit='wine ~/.wine/drive_c/Program\ Files\ \(x86\)/TablEdit/tabledit.exe'

@@ -3,5 +3,6 @@
 	name = Dan D'Avella
 [core]
 	editor = vim
+	excludesfile = /home/dan/.gitignore_global
 [color]
 	ui = true
