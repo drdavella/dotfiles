@@ -1,4 +1,5 @@
 set editor-mode vi
+set keymap vi-insert
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 set show-all-if-ambiguous on
