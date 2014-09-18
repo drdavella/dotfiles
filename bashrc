@@ -115,11 +115,13 @@ fi
 
 # PATH VARIABLES
 export PATH=$PATH:./
-export PATH=$PATH:/home/dan/google_appengine
+export PATH=$PATH:$HOME/google_appengine
 # ENVIRONMENT VARIABLES
-export PYTHONPATH=$PYTHONPATH:/home/dan/python/
-export PYTHONPATH=$PYTHONPATH:/home/dan/sandbox/python
+export PYTHONPATH=$PYTHONPATH:$HOME/python/
+export PYTHONPATH=$PYTHONPATH:$HOME/sandbox/python
 #export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/google_appengine
 export DOWNS=$HOME/Downloads
 export DOCS=$HOME/Documents
 export PYTHONSTARTUP=~/.pythonrc
+# JBOSS
+export JBOSS_HOME=/opt/wildfly-8.1.0.Final
