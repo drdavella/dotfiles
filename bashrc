@@ -115,6 +115,7 @@ fi
 
 # PATH VARIABLES
 export PATH=$PATH:./
+export PATH=$PATH:/bin
 export PATH=$PATH:$HOME/google_appengine
 # ENVIRONMENT VARIABLES
 export PYTHONPATH=$PYTHONPATH:$HOME/python/
@@ -125,3 +126,7 @@ export DOCS=$HOME/Documents
 export PYTHONSTARTUP=~/.pythonrc
 # JBOSS
 export JBOSS_HOME=/opt/wildfly-8.1.0.Final
+# TERM
+export TERM="xterm-256color"
+# SHARED LIBRARIES
+export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/lib:/usr/local/lib

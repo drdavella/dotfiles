@@ -165,3 +165,7 @@ nnoremap ]T :tablast<CR>
 nnoremap [T :tabfirst<CR>
 
 "------------------------------------------------------------
+hi def link whiteSpaceError Error
+autocmd Syntax * syn match whiteSpaceError "\(\S\| \)\@<=\t\+"
+autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
+"------------------------------------------------------------
