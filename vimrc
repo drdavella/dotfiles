@@ -15,11 +15,6 @@
 " have made, as well as sanely reset options when re-sourcing .vimrc
 set nocompatible
 
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-filetype indent plugin on
-
 " Enable syntax highlighting
 syntax on
 
@@ -133,8 +128,8 @@ set pastetoggle=<F11>
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 set smarttab
 set expandtab
 
@@ -169,3 +164,17 @@ hi def link whiteSpaceError Error
 autocmd Syntax * syn match whiteSpaceError "\(\S\| \)\@<=\t\+"
 autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
 "------------------------------------------------------------
+
+
+"------------------------------------------------------------
+" Giving Vundle a try for Rust source highlighting
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'rust-lang/rust.vim'
+call vundle#end()
+
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+filetype indent plugin on
