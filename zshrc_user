@@ -1,0 +1,66 @@
+#
+# Customized zsh aliases, etc. for danman
+#
+
+# editor and pager
+export EDITOR="vi"
+export PAGER="less"
+
+# customized prompt
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+[[ -z "$TMUX" ]] && exec tmux
+
+# for history search
+setopt HIST_IGNORE_DUPS
+[[ -n "^[[A"  ]] && bindkey "^[[A" history-beginning-search-backward
+[[ -n "^[[A"  ]] && bindkey "^[[B" history-beginning-search-forward
+
+# for prompts
+autoload -U promptinit && promptinit
+autoload -U colors && colors
+PROMPT=%F{white}%T" "%f%B[%F{red}%n%f]@%m%b:%d" "$" "
+
+# for vi delete mode
+bindkey '^?' backward-delete-char
+
+# aliases for editing this and other config files
+alias src="source $HOME/.zshrc"
+alias zshrc="vim $HOME/.zshrc.danman"
+alias vimrc='vim ~/.vimrc'
+alias tmuxrc='vim ~/.tmux.conf'
+alias pyrc='vim $HOME/.pythonrc '
+
+#### saftey aliases
+alias rm='/bin/rm -i'
+alias mv='/bin/mv -i'
+alias cp='/bin/cp -i'
+
+##### directory listing and navigation
+alias ls='ls --color'
+alias ll='ls -l --color'
+alias la='ls -la --color'
+alias home='cd'
+
+#### colordiff
+alias diff='colordiff '
+
+#### colorize grep
+alias grep='grep --color=auto '
+alias egrep='egrep --color=auto '
+alias fgrep='fgrep --color=auto '
+
+#### hashing
+alias md5='openssl md5 '
+alias sha1='openssl sha1 '
+
+#### git stuff
+alias branch='git branch'
+alias add='git add'
+alias commit='git commit'
+alias checkout='git checkout'
+alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+alias status='git status -uno'
+alias remote='git remote'
+
+#### other program aliases
+alias octave="octave-cli"
