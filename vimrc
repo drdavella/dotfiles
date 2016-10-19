@@ -178,3 +178,4 @@ call vundle#end()
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
 filetype indent plugin on
+set autoindent
