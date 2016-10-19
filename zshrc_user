@@ -3,17 +3,20 @@
 #
 
 # editor and pager
-export EDITOR="vi"
+export EDITOR="vim"
 export PAGER="less"
 
 # customized prompt
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
-[[ -z "$TMUX" ]] && exec tmux
+#[[ -z "$TMUX" ]] && exec tmux
 
 # for history search
 setopt HIST_IGNORE_DUPS
-[[ -n "^[[A"  ]] && bindkey "^[[A" history-beginning-search-backward
-[[ -n "^[[A"  ]] && bindkey "^[[B" history-beginning-search-forward
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+[[ -n "^[[A"  ]] && bindkey "^[[A" history-beginning-search-backward-end
+[[ -n "^[[A"  ]] && bindkey "^[[B" history-beginning-search-forward-end
 
 # for prompts
 autoload -U promptinit && promptinit
@@ -64,3 +67,4 @@ alias remote='git remote'
 
 #### other program aliases
 alias octave="octave-cli"
+alias visarm="/usr/local/bin/visual/VisUAL.sh"
