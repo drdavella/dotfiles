@@ -6,10 +6,6 @@
 export EDITOR="vi"
 export PAGER="less"
 
-# customized prompt
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
-[[ -z "$TMUX" ]] && exec tmux
-
 # for history search
 setopt HIST_IGNORE_DUPS
 [[ -n "^[[A"  ]] && bindkey "^[[A" history-beginning-search-backward
@@ -25,7 +21,7 @@ bindkey '^?' backward-delete-char
 
 # aliases for editing this and other config files
 alias src="source $HOME/.zshrc"
-alias zshrc="vim $HOME/.zshrc.danman"
+alias zshrc="vim $HOME/.zshrc_user"
 alias vimrc='vim ~/.vimrc'
 alias tmuxrc='vim ~/.tmux.conf'
 alias pyrc='vim $HOME/.pythonrc '
@@ -40,6 +36,7 @@ alias ls='ls --color'
 alias ll='ls -l --color'
 alias la='ls -la --color'
 alias home='cd'
+alias ..='cd ..'
 
 #### colordiff
 alias diff='colordiff '
