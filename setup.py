@@ -26,8 +26,9 @@ def main():
             continue
         if len(f) > 4 and f[-4:] == ".swp":
             continue
-        dest = home + f
-        subprocess.call([ln,'-s',os.path.abspath(f),dest])
+        dest = "{}/.{}".format(home,f)
+        source = "{}/{}".format(dotfiles,f)
+        subprocess.call([ln,'-s',source,dest])
 
 
 if __name__ == "__main__":
