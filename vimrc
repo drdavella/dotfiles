@@ -165,15 +165,6 @@ autocmd Syntax * syn match whiteSpaceError "\(\S\| \)\@<=\t\+"
 autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
 "------------------------------------------------------------
 
-
-"------------------------------------------------------------
-" Giving Vundle a try for Rust source highlighting
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'rust-lang/rust.vim'
-call vundle#end()
-
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
