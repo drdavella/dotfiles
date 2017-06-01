@@ -6,15 +6,21 @@
 export EDITOR="vi"
 export PAGER="less"
 
+# update PATH with various useful things
+export PATH="$PATH:$HOME/miniconda3/bin"
+
 # for history search
 setopt HIST_IGNORE_DUPS
-[[ -n "^[[A"  ]] && bindkey "^[[A" history-beginning-search-backward
-[[ -n "^[[A"  ]] && bindkey "^[[B" history-beginning-search-forward
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+[[ -n "^[[A"  ]] && bindkey "^[[A" history-beginning-search-backward-end
+[[ -n "^[[A"  ]] && bindkey "^[[B" history-beginning-search-forward-end
 
-# for prompts
-autoload -U promptinit && promptinit
-autoload -U colors && colors
-PROMPT=%F{white}%T" "%f%B[%F{red}%n%f]@%m%b:%d" "$" "
+# for prompts (currently disabled for oh-my-zsh)
+#autoload -U promptinit && promptinit
+#autoload -U colors && colors
+#PROMPT=%F{white}%T" "%f%B[%F{red}%n%f]@%m%b:%d" "$" "
 
 # for vi delete mode
 bindkey '^?' backward-delete-char
