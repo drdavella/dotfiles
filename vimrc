@@ -163,6 +163,11 @@ nnoremap [T :tabfirst<CR>
 hi def link whiteSpaceError Error
 autocmd Syntax * syn match whiteSpaceError "\(\S\| \)\@<=\t\+"
 autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
+
+" Show lines that are too long
+"------------------------------------------------------------
+autocmd Syntax * syn match Error /\%81v.\+/
+
 "------------------------------------------------------------
 
 " Attempt to determine the type of a file based on its name and possibly its
