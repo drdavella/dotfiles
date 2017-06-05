@@ -67,3 +67,6 @@ alias remote='git remote'
 
 #### other program aliases
 alias octave="octave-cli"
+#### for conda
+alias activate="source activate"
+alias deactivate="source deactivate"
