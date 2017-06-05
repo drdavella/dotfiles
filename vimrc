@@ -167,6 +167,7 @@ autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
 " Show lines that are too long
 "------------------------------------------------------------
 autocmd Syntax * syn match Error /\%81v.\+/
+set colorcolumn=80
 
 "------------------------------------------------------------
 
