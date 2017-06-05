@@ -8,6 +8,7 @@ export PAGER="less"
 
 # update PATH with various useful things
 export PATH="$PATH:$HOME/miniconda3/bin"
+export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # for history search
 setopt HIST_IGNORE_DUPS

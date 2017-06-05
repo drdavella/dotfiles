@@ -3,7 +3,7 @@
 # I also use in ipython, via "execfile ~/.pythonrc" in ~/.ipython/ipythonrc
 from __future__ import division
 from __future__ import print_function
-import sys, os, atexit
+import sys, os, atexit, six
 import math
 
 try:
@@ -28,15 +28,12 @@ except NameError:
     atexit.register(readline.write_history_file, histfile)
     del histfile
 
-# NOT COMPATIBLE WITH PYTHON3
-# nice to have stdout unbuffered.  but needs to be idempotent
-#if "<fdopen>" not in str(sys.stdout):
-#  sys.stdout = os.fdopen(1,'w',0)
-
+if six.PY3:
+    from importlib import reload
 
 ## I think it's nice to have lots of crap in the global namespace by default
-
 import re
+import math
 from copy import copy, deepcopy
 from pprint import pprint
 from datetime import datetime,timedelta
@@ -47,18 +44,12 @@ import time
 import random
 import subprocess
 
-#for s in ("from BeautifulSoup import BeautifulSoup",):
-#  try:
-#    exec s
-#  except ImportError as e:
-#    print(e)
-
 def myjoin(seq, sep=" "):
   " because str.join() is annoying "
   return sep.join(str(x) for x in seq)
 
-def mate(file):
-  return subprocess.call(("mate", file))
+def vim(filename):
+  return subprocess.call(("vim", filename))
 
 def uniq_c(seq):
   ret = defaultdict(lambda:0)
@@ -71,6 +62,3 @@ def flatten(iter):
 
 def flip(pairs):
   return [(y,x) for x,y in pairs]
-
-T = True
-F = False
