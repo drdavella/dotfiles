@@ -5,6 +5,8 @@
 # editor and pager
 export EDITOR="vi"
 export PAGER="less"
+# don't clear screen after quitting less
+export LESS="$LESS -X"
 
 # update PATH with various useful things
 export PATH="$PATH:$HOME/miniconda3/bin"
@@ -12,6 +14,7 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # for history search
 setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
