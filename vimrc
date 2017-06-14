@@ -163,6 +163,16 @@ nnoremap [t :tabprevious<CR>
 nnoremap ]T :tablast<CR>
 nnoremap [T :tabfirst<CR>
 
+" Buffer navigation
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprevious<CR>
+nnoremap gn :bnext<CR>
+nnoremap gp :bprevious<CR>
+nnoremap gl :ls<CR>
+nnoremap gb :ls<CR>:b
+nnoremap gq :bd<CR>
+
+
 "------------------------------------------------------------
 hi def link whiteSpaceError Error
 autocmd Syntax * syn match whiteSpaceError "\(\S\| \)\@<=\t\+"
