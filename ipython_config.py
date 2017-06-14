@@ -184,7 +184,7 @@ c.InteractiveShell.autoindent = True
 c.InteractiveShell.color_info = True
 
 ## Set the color scheme (NoColor, Neutral, Linux, or LightBG).
-c.InteractiveShell.colors = 'Linux'
+c.InteractiveShell.colors = 'Neutral'
 
 ## 
 #c.InteractiveShell.debug = False
