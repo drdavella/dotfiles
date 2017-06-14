@@ -14,6 +14,19 @@
 " Set 'nocompatible' to ward off unexpected things that your distro might
 " have made, as well as sanely reset options when re-sourcing .vimrc
 set nocompatible
+filetype off
+
+" Set runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin('~/.vim/bundle/plugins')
+Plugin 'VundleVim/Vundle.vim'
+
+" Add all plugins here
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+" All plugins must be added before the following line
+call vundle#end()
 
 " Enable syntax highlighting
 syntax on
@@ -182,6 +195,15 @@ autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
 "------------------------------------------------------------
 autocmd Syntax * syn match Error /\%81v.\+/
 set colorcolumn=80
+
+" Configuration for YouCompleteMe
+"------------------------------------------------------------
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" Configuration for NERDTreeTabs
+" -----------------------------------------------------------
+map <C-n> :NERDTreeToggle<CR>
 
 "------------------------------------------------------------
 
