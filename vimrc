@@ -126,12 +126,15 @@ set pastetoggle=<F11>
 "
 " Indentation settings according to personal preference.
 
-" Indentation settings for using 2 spaces instead of tabs.
+" Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
 set shiftwidth=4
 set softtabstop=4
 set smarttab
 set expandtab
+
+" Different indentation for yaml
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
 " Indentation settings for using hard tabs for indent. Display tabs as
 " two characters wide.
