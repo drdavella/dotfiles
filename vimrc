@@ -204,6 +204,7 @@ map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " Configuration for NERDTreeTabs
 " -----------------------------------------------------------
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
 "------------------------------------------------------------
 
