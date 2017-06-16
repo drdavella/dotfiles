@@ -18,8 +18,10 @@ setopt HIST_IGNORE_ALL_DUPS
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-[[ -n "^[[A"  ]] && bindkey "^[[A" history-beginning-search-backward-end
-[[ -n "^[[A"  ]] && bindkey "^[[B" history-beginning-search-forward-end
+bindkey -M vicmd 'k' history-beginning-search-backward-end
+bindkey -M vicmd 'j' history-beginning-search-forward-end
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end
 
 # for prompts (currently disabled for oh-my-zsh)
 #autoload -U promptinit && promptinit
