@@ -185,6 +185,8 @@ nnoremap gl :ls<CR>
 nnoremap gb :ls<CR>:b
 nnoremap gq :bd<CR>
 
+" Command for copying to system clipboard
+map <leader>c "*y
 
 "------------------------------------------------------------
 hi def link whiteSpaceError Error
