@@ -12,3 +12,5 @@
 	displayuntracked = false
 [grep]
 	lineNumber = True
+[rerere]
+	enabled = 1
