@@ -1,3 +1,5 @@
+[alias]
+    gui = !sh -c '/usr/local/Cellar/git/2.14.1/libexec/git-core/git-gui'
 [user]
 	email = drdavella@gmail.com
 	name = Dan D'Avella
