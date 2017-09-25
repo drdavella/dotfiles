@@ -44,9 +44,9 @@ alias mv='/bin/mv -i'
 alias cp='/bin/cp -i'
 
 ##### directory listing and navigation
-alias ls='ls --color'
-alias ll='ls -l --color'
-alias la='ls -la --color'
+alias ls='ls -G'
+alias ll='ls -l'
+alias la='ls -la'
 alias home='cd'
 alias ..='cd ..'
 
@@ -72,6 +72,7 @@ alias status='git status -uno'
 alias remote='git remote'
 
 #### other program aliases
+alias vi="vim"
 alias octave="octave-cli"
 #### for conda
 alias activate="source activate"
