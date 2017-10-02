@@ -25,6 +25,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
+Plugin 'vim-syntastic/syntastic'
 " All plugins must be added before the following line
 call vundle#end()
 
@@ -208,7 +209,22 @@ map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
+" Configuration for syntastic
 "------------------------------------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_python_checkers = ['python']
+
+map <leader>c :SyntasticCheck<CR>
+map <leader>f :SyntasticCheck flake8<CR>
+map <leader>r :SyntasticReset<CR>:set statusline&vi<CR>
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
