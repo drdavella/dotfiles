@@ -44,7 +44,7 @@ alias mv='/bin/mv -i'
 alias cp='/bin/cp -i'
 
 ##### directory listing and navigation
-alias ls='ls -G'
+alias ls='ls --color'
 alias ll='ls -l'
 alias la='ls -la'
 alias home='cd'
