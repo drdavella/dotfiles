@@ -187,6 +187,7 @@ nnoremap gb :ls<CR>:b
 nnoremap gq :bd<CR>
 
 " Command for copying to system clipboard
+set clipboard=unnamed
 map <leader>c "*y
 
 "------------------------------------------------------------
@@ -211,9 +212,9 @@ let NERDTreeIgnore=['\.pyc$', '\~$']
 
 " Configuration for syntastic
 "------------------------------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
