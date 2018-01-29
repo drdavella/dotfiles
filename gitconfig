@@ -1,8 +1,9 @@
 [alias]
     gui = !sh -c '/usr/local/Cellar/git/2.14.1/libexec/git-core/git-gui'
 [user]
-	email = drdavella@gmail.com
-	name = Dan D'Avella
+	email = ddavella@stsci.edu
+	name = Daniel D'Avella
+
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore_global
@@ -14,3 +15,5 @@
 	lineNumber = True
 [rerere]
 	enabled = 1
+[gpg]
+	program = gpg
