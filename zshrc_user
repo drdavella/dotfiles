@@ -44,7 +44,7 @@ alias mv='/bin/mv -i'
 alias cp='/bin/cp -i'
 
 ##### directory listing and navigation
-alias ls='ls -G'
+alias ls='ls --color'
 alias ll='ls -l'
 alias la='ls -la'
 alias home='cd'
@@ -70,6 +70,7 @@ alias checkout='git checkout'
 alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias status='git status -uno'
 alias remote='git remote'
+alias grup='grup --prune'
 
 #### other program aliases
 alias vi="vim"
