@@ -70,6 +70,7 @@ alias checkout='git checkout'
 alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias status='git status -uno'
 alias remote='git remote'
+alias grup='git remote update --prune'
 
 #### other program aliases
 alias vi="vim"
