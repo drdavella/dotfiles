@@ -225,6 +225,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ['python']
+let g:syntastic_python_python_exec = 'python3'
 
 map <leader>c :SyntasticCheck<CR>
 map <leader>f :SyntasticCheck flake8<CR>
