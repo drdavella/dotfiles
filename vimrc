@@ -87,6 +87,10 @@ set hlsearch
 set ignorecase
 set smartcase
 
+" Use smartcase when searching with super star also
+:nnoremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
+:nnoremap # ?\<<C-R>=expand('<cword>')<CR>\><CR>
+
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
 
