@@ -228,6 +228,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_python_python_exec = 'python3'
 
+let g:syntastic_rst_checkers = []
+
 map <leader>c :SyntasticCheck<CR>
 map <leader>f :SyntasticCheck flake8<CR>
 map <leader>r :SyntasticReset<CR>:set statusline&vi<CR>
