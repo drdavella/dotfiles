@@ -1,6 +1,7 @@
 #
 # Customized zsh aliases, etc. for danman
 #
+. $HOME/miniconda3/etc/profile.d/conda.sh
 
 # editor and pager
 export EDITOR="vi"
@@ -9,7 +10,6 @@ export PAGER="less"
 export LESS="$LESS -X"
 
 # update PATH with various useful things
-export PATH="$PATH:$HOME/miniconda3/bin"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # for history search
@@ -76,5 +76,5 @@ alias grup='git remote update --prune'
 alias vi="vim"
 alias octave="octave-cli"
 #### for conda
-alias activate="source activate"
-alias deactivate="source deactivate"
+alias activate="conda activate"
+alias deactivate="conda deactivate"
