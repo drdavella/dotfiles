@@ -26,6 +26,7 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'leafgarland/typescript-vim'
 " All plugins must be added before the following line
 call vundle#end()
 
