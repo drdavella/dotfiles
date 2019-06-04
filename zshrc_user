@@ -63,10 +63,22 @@ alias md5='openssl md5 '
 alias sha1='openssl sha1 '
 
 #### git stuff
+function _checkout() {
+    _last_branch=`git rev-parse --abbrev-ref HEAD`
+    git checkout $@
+}
+compdef _git _checkout=git-checkout > /dev/null
+
+function clb {
+    if [[ ! -z $_last_branch ]]; then
+        _checkout $_last_branch
+    fi
+}
+
 alias branch='git branch'
 alias add='git add'
 alias commit='git commit'
-alias checkout='git checkout'
+alias checkout=_checkout
 alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias status='git status -uno'
 alias remote='git remote'
@@ -78,3 +90,5 @@ alias octave="octave-cli"
 #### for conda
 alias activate="conda activate"
 alias deactivate="conda deactivate"
+
+#. $HOME/.bzshrc
