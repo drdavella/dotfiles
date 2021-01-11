@@ -1,7 +1,8 @@
 #
 # Customized zsh aliases, etc. for danman
 #
-. $HOME/miniconda3/etc/profile.d/conda.sh
+#. $HOME/miniconda3/etc/profile.d/conda.sh
+export MODULEPATH="$MODULEPATH:$HOME/modulefiles"
 
 # editor and pager
 export EDITOR="vi"
@@ -37,6 +38,7 @@ alias zshrc="vim $HOME/.zshrc_user"
 alias vimrc='vim ~/.vimrc'
 alias tmuxrc='vim ~/.tmux.conf'
 alias pyrc='vim $HOME/.pythonrc '
+alias local-ts='vim $HOME/modulefiles/local-ts' 
 
 #### saftey aliases
 alias rm='/bin/rm -i'
@@ -73,6 +75,15 @@ function clb {
     if [[ ! -z $_last_branch ]]; then
         _checkout $_last_branch
     fi
+}
+
+function rename {
+    _dirpath=$(dirname $1)
+    mv $1 "$_dirpath/$2"
+}
+
+function module {
+    eval `/usr/local/Modules/bin/modulecmd $(basename $SHELL) $*`
 }
 
 alias branch='git branch'
