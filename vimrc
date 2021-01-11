@@ -18,6 +18,27 @@ filetype off
 
 set relativenumber
 
+"------------------------------------------------------------
+" Indentation options {{{1
+"
+" Indentation settings according to personal preference.
+
+" Indentation settings for using 4 spaces instead of tabs.
+" Do not change 'tabstop' from its default value of 8 with this setup.
+set shiftwidth=4
+set softtabstop=4
+set smarttab
+set expandtab
+
+" Different indentation for yaml
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+
+" Indentation settings for using hard tabs for indent. Display tabs as
+" two characters wide.
+"set shiftwidth=2
+"set tabstop=2
+
+
 " Set runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin('~/.vim/bundle/plugins')
@@ -30,10 +51,12 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'drdavella/gitgrep.vim'
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'psf/black'
+Plugin 'fatih/vim-go'
+Plugin 'neoclide/coc.nvim'
 Plugin 'junegunn/fzf'
 Plugin 'rakr/vim-two-firewatch'
 Plugin 'morhetz/gruvbox'
@@ -93,7 +116,6 @@ set hlsearch
 " change Vim's behaviour in ways which deviate from the true Vi way, but
 " which are considered to add usability. Which, if any, of these options to
 " use is very much a personal preference, but they are harmless.
-
 " Use case insensitive search, except when using capital letters
 set ignorecase
 set smartcase
@@ -151,27 +173,6 @@ set pastetoggle=<F11>
 
 
 "------------------------------------------------------------
-" Indentation options {{{1
-"
-" Indentation settings according to personal preference.
-
-" Indentation settings for using 4 spaces instead of tabs.
-" Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
-set smarttab
-set expandtab
-
-" Different indentation for yaml
-autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-
-" Indentation settings for using hard tabs for indent. Display tabs as
-" two characters wide.
-"set shiftwidth=2
-"set tabstop=2
-
-
-"------------------------------------------------------------
 " Mappings {{{1
 "
 " Useful mappings
@@ -221,6 +222,7 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark="hard"
 set background=dark
 "highlight Normal ctermfg=grey ctermbg=black
+
 " Configuration for YouCompleteMe
 "------------------------------------------------------------
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -229,6 +231,7 @@ map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " Configuration for NERDTreeTabs
 " -----------------------------------------------------------
 map <C-n> :NERDTreeToggle<CR>
+map ,n :NERDTreeFind<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
 " Configuration for syntastic
@@ -246,6 +249,19 @@ let g:syntastic_python_checkers = ['python']
 let g:syntastic_python_python_exec = 'python3'
 
 let g:syntastic_rst_checkers = []
+let g:syntastic_c_checkers = []
+
+let g:go_auto_type_info = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
+
+" Configuration for black
+"------------------------------------------------------------
+let g:black_virtualenv = '~/.vim/black'
+autocmd BufWritePre *.py execute ':Black'
 
 map <leader>c :SyntasticCheck<CR>
 map <leader>f :SyntasticCheck flake8<CR>
