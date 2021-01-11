@@ -27,6 +27,13 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'drdavella/gitgrep.vim'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/supertab'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'psf/black'
+Plugin 'junegunn/fzf'
+Plugin 'rakr/vim-two-firewatch'
 " All plugins must be added before the following line
 call vundle#end()
 
@@ -239,3 +246,11 @@ map <leader>r :SyntasticReset<CR>:set statusline&vi<CR>
 " contents. Use this to allow intelligent auto-indenting for each filetype,
 " and for plugins that are filetype specific.
 filetype indent plugin on
+
+" Configuration for fzf
+"------------------------------------------------------------
+let $FZF_DEFAULT_COMMAND = "fd --type f --hidden -E '.git'"
+nmap ; :FZF<CR>
+
+command Vimrc :e $HOME/.vimrc
+command Source :source $HOME/.vimrc
