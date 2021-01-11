@@ -212,6 +212,12 @@ autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
 autocmd Syntax * syn match Error /\%81v.\+/
 set colorcolumn=80
 
+" Set colorscheme and background color
+"------------------------------------------------------------
+colorscheme gruvbox
+let g:gruvbox_contrast_dark="hard"
+set background=dark
+"highlight Normal ctermfg=grey ctermbg=black
 " Configuration for YouCompleteMe
 "------------------------------------------------------------
 let g:ycm_autoclose_preview_window_after_completion=1
