@@ -36,6 +36,7 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'psf/black'
 Plugin 'junegunn/fzf'
 Plugin 'rakr/vim-two-firewatch'
+Plugin 'morhetz/gruvbox'
 " All plugins must be added before the following line
 call vundle#end()
 
