@@ -64,6 +64,10 @@ alias fgrep='fgrep --color=auto '
 alias md5='openssl md5 '
 alias sha1='openssl sha1 '
 
+#### cool tools
+alias cat='bat'
+alias grep='rg'
+
 #### git stuff
 function _checkout() {
     _last_branch=`git rev-parse --abbrev-ref HEAD`
@@ -94,9 +98,13 @@ alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 alias status='git status -uno'
 alias remote='git remote'
 alias grup='git remote update --prune'
+alias gs='git status -uno'
+
+alias mysql=/usr/local/opt/mysql-client/bin/mysql
 
 #### other program aliases
 alias vi="vim"
+alias :e="vim"
 alias octave="octave-cli"
 #### for conda
 alias activate="conda activate"
