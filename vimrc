@@ -46,7 +46,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Add all plugins here
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'leafgarland/typescript-vim'
@@ -210,11 +210,13 @@ map <leader>c "*y
 hi def link whiteSpaceError Error
 autocmd Syntax * syn match whiteSpaceError "\(\S\| \)\@<=\t\+"
 autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
+autocmd BufNewFile,BufRead Dockerfile* set ft=dockerfile
 
 " Show lines that are too long
 "------------------------------------------------------------
-autocmd Syntax * syn match Error /\%81v.\+/
-set colorcolumn=80
+autocmd Syntax * syn match Error /\%89v.\+/
+set colorcolumn=88
+set textwidth=87
 
 " Set colorscheme and background color
 "------------------------------------------------------------
@@ -266,6 +268,8 @@ autocmd BufWritePre *.py execute ':Black'
 map <leader>c :SyntasticCheck<CR>
 map <leader>f :SyntasticCheck flake8<CR>
 map <leader>r :SyntasticReset<CR>:set statusline&vi<CR>
+
+map <leader>p :execute GitGrep(expand("<cword>"))<CR>
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
