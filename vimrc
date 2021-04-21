@@ -51,12 +51,15 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'drdavella/gitgrep.vim'
-"Plugin 'davidhalter/jedi-vim'
+" To use with coc-python:
+" :CocInstall coc-python
+" :CocConfig and add python.jediEnabled: false
+Plugin 'neoclide/coc.nvim'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'psf/black'
 Plugin 'fatih/vim-go'
-Plugin 'neoclide/coc.nvim'
 Plugin 'junegunn/fzf'
 Plugin 'rakr/vim-two-firewatch'
 Plugin 'morhetz/gruvbox'
@@ -217,6 +220,7 @@ autocmd BufNewFile,BufRead Dockerfile* set ft=dockerfile
 autocmd Syntax * syn match Error /\%89v.\+/
 set colorcolumn=88
 set textwidth=87
+autocmd FileType markdown setlocal textwidth=80
 
 " Set colorscheme and background color
 "------------------------------------------------------------
@@ -270,6 +274,12 @@ map <leader>f :SyntasticCheck flake8<CR>
 map <leader>r :SyntasticReset<CR>:set statusline&vi<CR>
 
 map <leader>p :execute GitGrep(expand("<cword>"))<CR>
+
+" Configuration for Python navigation
+"------------------------------------------------------------
+" Use jedi-vim for code navigation, but not completion since we're using coc-python
+let g:jedi#completions_enabled = 0
+map <leader>o <C-O>
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
