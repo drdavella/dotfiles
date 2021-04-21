@@ -90,6 +90,14 @@ function module {
     eval `/usr/local/Modules/bin/modulecmd $(basename $SHELL) $*`
 }
 
+function newest-docker-image-id {
+    docker image ls -a --format "{{.ID}}" | head -n1
+}
+
+function run-newest-docker-image {
+    docker run -i -t $(newest-docker-image-id) $1
+}
+
 alias branch='git branch'
 alias add='git add'
 alias commit='git commit'
