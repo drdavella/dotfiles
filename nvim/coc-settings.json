@@ -1,0 +1,6 @@
+{
+    "suggest.noselect": true,
+    "suggest.autoTrigger": "always",
+    "suggest.enablePreselect": true,
+    "suggest.virtualText": true
+}
