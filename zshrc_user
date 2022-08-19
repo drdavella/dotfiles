@@ -1,0 +1,154 @@
+# Customized zsh aliases, etc. for danman
+#
+export GOPATH="$HOME/go"
+export RUSTPATH="$HOME/.cargo/bin"
+export PATH="$RUSTPATH:$GOPATH/bin:/usr/local/opt/go@1.13/bin:/usr/local/bin:$PATH:$HOME/bin"
+export PATH="/opt/homebrew/bin:$HOME/.local/bin:$PATH:$HOME/.composer/vendor/bin"
+export MODULEPATH="$MODULEPATH:$HOME/modulefiles"
+
+# editor and pager
+export EDITOR="vi"
+export PAGER="less"
+# don't clear screen after quitting less
+export LESS="$LESS -X"
+
+# update PATH with various useful things
+export PATH="$PATH:$HOME/miniconda3/bin"
+export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# for history search
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey -M vicmd 'k' history-beginning-search-backward-end
+bindkey -M vicmd 'j' history-beginning-search-forward-end
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end
+
+# for prompts (currently disabled for oh-my-zsh)
+#autoload -U promptinit && promptinit
+#autoload -U colors && colors
+#PROMPT=%F{white}%T" "%f%B[%F{red}%n%f]@%m%b:%d" "$" "
+
+# for vi delete mode
+bindkey '^?' backward-delete-char
+
+# aliases for editing this and other config files
+alias src="source $HOME/.zshrc"
+alias zshrc="vim $HOME/.zshrc_user"
+alias vimrc='vim ~/.vimrc'
+alias nvimrc='nvim ~/.config/nvim/init.vim'
+alias tmuxrc='vim ~/.tmux.conf'
+alias pyrc='vim $HOME/.pythonrc '
+alias local-ts='vim $HOME/modulefiles/local-ts' 
+
+#### saftey aliases
+alias rm='/bin/rm -i'
+alias mv='/bin/mv -i'
+alias cp='/bin/cp -i'
+
+##### directory listing and navigation
+alias ls='ls -G'
+alias ll='ls -l'
+alias la='ls -la'
+alias home='cd'
+alias ..='cd ..'
+
+#### colordiff
+alias diff='colordiff '
+
+#### colorize grep
+alias grep='grep --color=auto '
+alias egrep='egrep --color=auto '
+alias fgrep='fgrep --color=auto '
+
+#### hashing
+alias md5='openssl md5 '
+alias sha1='openssl sha1 '
+
+#### cool tools
+alias cat='bat'
+alias grep='rg'
+
+#### git stuff
+function _checkout() {
+    _last_branch=`git rev-parse --abbrev-ref HEAD`
+    git checkout $@
+}
+compdef _git _checkout=git-checkout > /dev/null
+
+function clb {
+    if [[ ! -z $_last_branch ]]; then
+        _checkout $_last_branch
+    fi
+}
+
+function rename {
+    _dirpath=$(dirname $1)
+    mv $1 "$_dirpath/$2"
+}
+
+function module {
+    eval `/opt/homebrew/opt/Modules/bin/modulecmd $(basename $SHELL) $*`
+}
+
+function newest-docker-image-id {
+    docker image ls -a --format "{{.ID}}" | head -n1
+}
+
+function run-newest-docker-image {
+    docker run -i -t $(newest-docker-image-id) $@
+}
+
+alias branch='git branch'
+alias add='git add'
+alias commit='git commit'
+alias checkout=_checkout
+alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+alias status='git status -uno'
+alias remote='git remote'
+alias grup='git remote update --prune'
+alias gs='git status -uno'
+
+alias mysql=/usr/local/opt/mysql-client/bin/mysql
+
+#### other program aliases
+alias vi="vim"
+alias nv="nvim"
+alias :e="vim"
+alias octave="octave-cli"
+
+#### for pyenv
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
+#export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+#
+#function _pyenv_prompt {
+#    if [[ ! -z $PYENV_VIRTUAL_ENV ]]; then
+#        echo "($(basename $PYENV_VIRTUAL_ENV))"
+#    fi
+#}
+#
+#RPROMPT='$(_pyenv_prompt)'
+
+alias java8='$HOME/jdk8u212-b03/Contents/Home/bin/java'
+alias ghidra='$HOME/ghidra/ghidraRun'
+
+alias activate="conda activate"
+alias deactivate="conda deactivate"
+alias ebt="activate easybuggy-test"
+
+alias phporg="vim $HOME/org/php.org"
+alias scanorg="vim $HOME/org/scan.org"
+
+alias pya="cd $HOME/python-agent"
+alias psrc="cd $HOME/php-src"
+
+# This function can help improve performance of omz prompt in large git repos
+function zsh_git_ignore_dirty {
+    git config --add oh-my-zsh.hide-dirty 1
+}
+
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc

@@ -1,0 +1,26 @@
+[alias]
+    gui = !sh -c '$HOME/git/git-gui/git-gui.sh'
+[user]
+	email = daniel.davella@contrastsecurity.com
+	name = Daniel D'Avella
+
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[color]
+	ui = true
+[gui]
+	displayuntracked = false
+[grep]
+	lineNumber = True
+[gpg]
+	program = gpg
+[merge]
+        tool = meld
+[mergetool "meld"]
+        cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
