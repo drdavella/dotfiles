@@ -1,7 +1,7 @@
 [alias]
     gui = !sh -c '$HOME/git/git-gui/git-gui.sh'
 [user]
-	email = daniel.davella@contrastsecurity.com
+	email = drdavella@gmail.com
 	name = Daniel D'Avella
 
 [core]
