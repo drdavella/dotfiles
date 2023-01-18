@@ -2,5 +2,6 @@
     "suggest.noselect": true,
     "suggest.autoTrigger": "always",
     "suggest.enablePreselect": true,
-    "suggest.virtualText": true
+    "suggest.virtualText": true,
+    "python.formatting.provider": "black"
 }

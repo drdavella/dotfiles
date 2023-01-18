@@ -115,9 +115,9 @@ alias gs='git status -uno'
 alias mysql=/usr/local/opt/mysql-client/bin/mysql
 
 #### other program aliases
-alias vi="vim"
+alias vi="nvim"
 alias nv="nvim"
-alias :e="vim"
+alias :e="nvim"
 alias octave="octave-cli"
 
 #### for pyenv
@@ -145,6 +145,8 @@ alias scanorg="vim $HOME/org/scan.org"
 
 alias pya="cd $HOME/python-agent"
 alias psrc="cd $HOME/php-src"
+
+alias cfc="cargo fmt --check"
 
 # This function can help improve performance of omz prompt in large git repos
 function zsh_git_ignore_dirty {

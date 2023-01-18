@@ -3,7 +3,7 @@
 set nocompatible
 filetype off
 
-set relativenumber
+"set relativenumber
 
 " Enable syntax highlighting
 syntax on
@@ -37,16 +37,22 @@ Plugin 'neoclide/coc.nvim'
 Plugin 'junegunn/fzf'
 Plugin 'morhetz/gruvbox'
 Plugin 'udalov/kotlin-vim'
-Plugin 'tpope/vinegar.vim'
+Plugin 'tpope/vim-vinegar'
 " For rust development
 Plugin 'rust-lang/rust.vim'
 
 Plugin 'nvim-lua/plenary.nvim'
 Plugin 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 
+Plugin 'numToStr/Comment.nvim'
+Plugin 'vim-autoformat/vim-autoformat'
+
 " All plugins must be added before the following line
 call vundle#end()
 
+" Use pynvim
+" -----------------------------------------------------------
+let g:python3_host_prog="/usr/bin/python3"
 
 " Set colorscheme and background color
 "------------------------------------------------------------
@@ -200,6 +206,16 @@ set clipboard=unnamed
 map <leader>c "*y
 
 
+" Whitespace
+"------------------------------------------------------------
+"set listchars="tab:▷ ,trail:·,extends:◣,precedes:◢,nbsp:○"
+set listchars=eol:↵,trail:~,tab:>-,nbsp:␣
+match whiteSpaceError /\s\+$/
+hi def link whiteSpaceError Error
+"autocmd Syntax * syn match whiteSpaceError "\(\S\| \)\@<=\t\+"
+"autocmd Syntax * syn match whiteSpaceError "\s\+\%\#\@\<!$"
+"autocmd BufNewFile,BufRead Dockerfile* set ft=dockerfile
+
 " Configuration for NERDTreeTabs
 " -----------------------------------------------------------
 map <C-n> :NERDTreeToggle<CR>
@@ -220,6 +236,11 @@ nnoremap fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
+" Configuration for Comment
+"------------------------------------------------------------
+lua << EOF
+require('Comment').setup()
+EOF
 
 " Configuration for rust
 "------------------------------------------------------------
@@ -227,8 +248,12 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-autocmd FileType rust vnoremap <buffer> gq :RustFmtRange<CR>
+"autocmd FileType rust vnoremap <buffer> gq :RustFmtRange<CR>
 let g:rust_cargo_use_clippy = 1
+"let g:rustfmt_autosave = 1
+let g:rustmt_emit_files = 0
+nmap <silent> <F3> :call CocAction('format')<CR>
+
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! CheckBackspace() abort
