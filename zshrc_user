@@ -133,6 +133,11 @@ alias octave="octave-cli"
 #
 #RPROMPT='$(_pyenv_prompt)'
 
+# Run the most recent
+function docker_run_newest {
+    docker run -i -t `docker image ls -q | head -n1` $@
+}
+
 alias java8='$HOME/jdk8u212-b03/Contents/Home/bin/java'
 alias ghidra='$HOME/ghidra/ghidraRun'
 
