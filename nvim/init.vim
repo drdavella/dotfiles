@@ -47,6 +47,10 @@ Plugin 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plugin 'numToStr/Comment.nvim'
 Plugin 'vim-autoformat/vim-autoformat'
 
+Plugin 'ludovicchabant/vim-gutentags'
+
+Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " All plugins must be added before the following line
 call vundle#end()
 
@@ -270,3 +274,16 @@ inoremap <silent><expr> <Tab>
 "------------------------------------------------------------
 command Vimrc :e $HOME/.config/nvim/init.vim
 command Source :source $HOME/.config/nvim/init.vim
+
+
+lua << EOF
+--[[
+require('nvim-treesitter.configs').setup({
+    ensure_installed = { "python" },
+    auto_install = true,
+    highlight = {
+        enable = true,
+    }
+})
+]]
+EOF
