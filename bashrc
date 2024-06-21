@@ -130,3 +130,4 @@ export JBOSS_HOME=/opt/wildfly-8.1.0.Final
 export TERM="xterm-256color"
 # SHARED LIBRARIES
 export LD_LIBRARY_PATH=LD_LIBRARY_PATH:/usr/lib:/usr/local/lib
+. "$HOME/.cargo/env"
