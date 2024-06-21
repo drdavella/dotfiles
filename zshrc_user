@@ -7,7 +7,7 @@ export PATH="/opt/homebrew/bin:$HOME/.local/bin:$PATH:$HOME/.composer/vendor/bin
 export MODULEPATH="$MODULEPATH:$HOME/modulefiles"
 
 # editor and pager
-export EDITOR="vi"
+export EDITOR="nvim"
 export PAGER="less"
 # don't clear screen after quitting less
 export LESS="$LESS -X"
@@ -37,7 +37,7 @@ bindkey '^?' backward-delete-char
 
 # aliases for editing this and other config files
 alias src="source $HOME/.zshrc"
-alias zshrc="vim $HOME/.zshrc_user"
+alias zshrc="nvim $HOME/.zshrc_user"
 alias vimrc='vim ~/.vimrc'
 alias nvimrc='nvim ~/.config/nvim/init.vim'
 alias tmuxrc='vim ~/.tmux.conf'

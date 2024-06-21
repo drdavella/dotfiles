@@ -22,37 +22,41 @@ set expandtab
 " Different indentation for yaml
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
-" Set runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('~/.vim/bundle/plugins')
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin()
 " Add all plugins here
-Plugin 'scrooloose/nerdtree'
-Plugin 'leafgarland/typescript-vim'
-" To use with coc-python:
-" :CocInstall coc-python
-" :CocConfig and add python.jediEnabled: false
-Plugin 'neoclide/coc.nvim'
-" Plugin 'ervandew/supertab'
-Plugin 'junegunn/fzf'
-Plugin 'morhetz/gruvbox'
-Plugin 'udalov/kotlin-vim'
-Plugin 'tpope/vim-vinegar'
+Plug 'scrooloose/nerdtree'
+Plug 'leafgarland/typescript-vim'
+" To use with coc-pyright:
+" :CocInstall coc-pyright
+function! BuildCoc(info)
+    if a:info.status == 'installed' || a:info.force
+        !yarn install
+    endif
+endfunction
+Plug 'neoclide/coc.nvim', { 'do': function('BuildCoc') }
+" Plug 'ervandew/supertab'
+Plug 'junegunn/fzf'
+Plug 'morhetz/gruvbox'
+Plug 'udalov/kotlin-vim'
+Plug 'tpope/vim-vinegar'
 " For rust development
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 
-Plugin 'nvim-lua/plenary.nvim'
-Plugin 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 
-Plugin 'numToStr/Comment.nvim'
-Plugin 'vim-autoformat/vim-autoformat'
+Plug 'numToStr/Comment.nvim'
+Plug 'vim-autoformat/vim-autoformat'
 
-Plugin 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
+Plug 'mfussenegger/nvim-jdtls'
 
-Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'github/copilot.vim'
 
 " All plugins must be added before the following line
-call vundle#end()
+call plug#end()
 
 " Use pynvim
 " -----------------------------------------------------------
@@ -252,7 +256,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-"autocmd FileType rust vnoremap <buffer> gq :RustFmtRange<CR>
+nmap <leader>rn <Plug>(coc-rename)
+""autocmd FileType rust vnoremap <buffer> gq :RustFmtRange<CR>
 let g:rust_cargo_use_clippy = 1
 "let g:rustfmt_autosave = 1
 let g:rustmt_emit_files = 0
@@ -284,6 +289,38 @@ require('nvim-treesitter.configs').setup({
     highlight = {
         enable = true,
     }
+})
+]]
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+--[[
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
 })
 ]]
 EOF
