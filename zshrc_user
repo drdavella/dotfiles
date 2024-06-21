@@ -6,6 +6,8 @@ export PATH="$RUSTPATH:$GOPATH/bin:/usr/local/opt/go@1.13/bin:/usr/local/bin:$PA
 export PATH="/opt/homebrew/bin:$HOME/.local/bin:$PATH:$HOME/.composer/vendor/bin"
 export MODULEPATH="$MODULEPATH:$HOME/modulefiles"
 
+export AWS_PROFILE=drd
+
 # editor and pager
 export EDITOR="nvim"
 export PAGER="less"
@@ -90,6 +92,11 @@ function rename {
     mv $1 "$_dirpath/$2"
 }
 
+function git-rename {
+    _dirpath=$(dirname $1)
+    git mv $1 "$_dirpath/$2"
+}
+
 function module {
     eval `/opt/homebrew/opt/Modules/bin/modulecmd $(basename $SHELL) $*`
 }
@@ -156,6 +163,10 @@ alias cfc="cargo fmt --check"
 # This function can help improve performance of omz prompt in large git repos
 function zsh_git_ignore_dirty {
     git config --add oh-my-zsh.hide-dirty 1
+}
+
+function jql {
+    jq -C $@ | less
 }
 
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
