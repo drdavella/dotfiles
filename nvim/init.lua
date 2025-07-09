@@ -111,7 +111,7 @@ require("lazy").setup({
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "ruff_lsp" },
+        ensure_installed = { "pyright", "ruff" },
       })
     end,
   },
