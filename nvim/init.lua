@@ -181,9 +181,24 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 -- LSP capabilities
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
+-- Function to detect uv environment
+local function get_python_path()
+  -- Check if we're in a uv environment
+  local uv_python = vim.fn.system("uv run which python 2>/dev/null"):gsub("\n", "")
+  if vim.v.shell_error == 0 and uv_python ~= "" then
+    return uv_python
+  end
+  
+  -- Fallback to system python
+  return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
+end
+
 -- Python LSP setup
 lspconfig.pyright.setup({
   capabilities = capabilities,
+  before_init = function(_, config)
+    config.settings.python.pythonPath = get_python_path()
+  end,
   settings = {
     python = {
       analysis = {
@@ -198,6 +213,16 @@ lspconfig.pyright.setup({
 -- Ruff LSP for linting and formatting
 lspconfig.ruff_lsp.setup({
   capabilities = capabilities,
+  cmd = function()
+    -- Try to use ruff from uv environment first
+    local uv_ruff = vim.fn.system("uv run which ruff 2>/dev/null"):gsub("\n", "")
+    if vim.v.shell_error == 0 and uv_ruff ~= "" then
+      return { "uv", "run", "ruff", "server", "--preview" }
+    end
+    
+    -- Fallback to system ruff
+    return { "ruff", "server", "--preview" }
+  end,
   init_options = {
     settings = {
       args = {},
