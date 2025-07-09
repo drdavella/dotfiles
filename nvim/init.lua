@@ -166,11 +166,11 @@ require("lazy").setup({
   },
 
   -- Other plugins
-  "leafgarland/typescript-vim",
-  "udalov/kotlin-vim",
-  "tpope/vim-vinegar",
-  "rust-lang/rust.vim",
-  "vim-autoformat/vim-autoformat",
+  --"leafgarland/typescript-vim",
+  --"udalov/kotlin-vim",
+  --"tpope/vim-vinegar",
+  --"rust-lang/rust.vim",
+  --"vim-autoformat/vim-autoformat",
   "github/copilot.vim",
 })
 
@@ -213,21 +213,6 @@ lspconfig.pyright.setup({
 -- Ruff LSP for linting and formatting
 lspconfig.ruff_lsp.setup({
   capabilities = capabilities,
-  cmd = function()
-    -- Try to use ruff from uv environment first
-    local uv_ruff = vim.fn.system("uv run which ruff 2>/dev/null"):gsub("\n", "")
-    if vim.v.shell_error == 0 and uv_ruff ~= "" then
-      return { "uv", "run", "ruff", "server", "--preview" }
-    end
-    
-    -- Fallback to system ruff
-    return { "ruff", "server", "--preview" }
-  end,
-  init_options = {
-    settings = {
-      args = {},
-    },
-  },
 })
 
 -- LSP keymaps
@@ -261,6 +246,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
     vim.lsp.buf.format({ async = false })
+  end,
+})
+
+-- Auto-close quickfix when selecting an item
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.keymap.set("n", "<CR>", "<CR>:cclose<CR>", { buffer = true, silent = true })
   end,
 })
 
