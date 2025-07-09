@@ -211,7 +211,7 @@ lspconfig.pyright.setup({
 })
 
 -- Ruff LSP for linting and formatting
-lspconfig.ruff_lsp.setup({
+lspconfig.ruff.setup({
   capabilities = capabilities,
 })
 
