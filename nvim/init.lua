@@ -166,6 +166,11 @@ require("lazy").setup({
   "github/copilot.vim",
 })
 
+-- Copilot configuration
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+--vim.g.copilot_tab_fallback = ""
+
 -- LSP Configuration
 local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -281,23 +286,37 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
+      -- Check if Copilot has a suggestion first
+      if vim.fn["copilot#Enabled"]() == 1 then
+        local suggestion = vim.fn["copilot#GetDisplayedSuggestion"]()
+        if suggestion and suggestion.text ~= "" then
+          return vim.fn["copilot#Accept"]("<Tab>")
+        end
       end
+      
+      -- If no copilot suggestion, fall back to cmp
+      if cmp.visible() then
+        return cmp.select_next_item()
+      end
+      if luasnip.expand_or_jumpable() then
+        return luasnip.expand_or_jump()
+      end
+      
+      return fallback()
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
+        return cmp.select_prev_item()
       end
+
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      end
+
+      return fallback()
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
