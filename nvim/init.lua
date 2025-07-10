@@ -332,10 +332,10 @@ cmp.setup({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        return cmp.select_next_item()
-      elseif require("copilot.suggestion").is_visible() then
+      if require("copilot.suggestion").is_visible() then
         return require("copilot.suggestion").accept()
+      elseif cmp.visible() then
+        return cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
         return luasnip.expand_or_jump()
       else
@@ -343,10 +343,10 @@ cmp.setup({
       end
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        return cmp.select_prev_item()
-      elseif require("copilot.suggestion").jumpable(-1) then
+      if require("copilot.suggestion").jumpable(-1) then
         return require("copilot.suggestion").jump(-1)
+      elseif cmp.visible() then
+        return cmp.select_prev_item()
       else
         return fallback()
       end
