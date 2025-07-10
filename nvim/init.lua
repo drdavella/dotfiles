@@ -107,14 +107,6 @@ require("lazy").setup({
     end,
   },
 
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "ruff" },
-      })
-    end,
-  },
 
   -- Autocompletion
   {
@@ -182,22 +174,38 @@ local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
 -- Function to detect uv environment
-local function get_python_path()
-  -- Check if we're in a uv environment
-  local uv_python = vim.fn.system("uv run which python 2>/dev/null"):gsub("\n", "")
-  if vim.v.shell_error == 0 and uv_python ~= "" then
-    return uv_python
+local util = require("lspconfig.util")
+local function get_python_path(workspace)
+  -- 1) Try finding a .venv folder in or above the cwd
+  local root = util.root_pattern(".venv")(workspace or vim.fn.getcwd())
+  if root then
+    local py = root .. "/.venv/bin/python"
+    if vim.fn.executable(py) == 1 then
+      return py
+    end
   end
-  
-  -- Fallback to system python
-  return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
+
+  -- 2) If uv is available, use its shim’d python
+  if vim.fn.executable("uv") == 1 then
+    local uv_py = vim.trim(vim.fn.system("uv which python"))
+    if uv_py ~= "" and vim.fn.executable(uv_py) == 1 then
+      return uv_py
+    end
+  end
+
+  -- 3) System fallback
+  return vim.fn.exepath("python3")
+      or vim.fn.exepath("python")
+      or "python"
 end
 
 -- Python LSP setup
 lspconfig.pyright.setup({
   capabilities = capabilities,
   before_init = function(_, config)
-    config.settings.python.pythonPath = get_python_path()
+    local py = get_python_path(config.root_dir)
+    print("→ Pyright using: ", py)
+    config.settings.python.pythonPath = py
   end,
   settings = {
     python = {
