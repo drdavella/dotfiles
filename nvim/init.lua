@@ -163,10 +163,19 @@ require("lazy").setup({
   --"tpope/vim-vinegar",
   --"rust-lang/rust.vim",
   --"vim-autoformat/vim-autoformat",
-  "github/copilot.vim",
+  --"github/copilot.vim",
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+  }
 })
 
 -- Copilot configuration
+require("copilot").setup({
+  suggestion = { enabled = true, auto_trigger = true },
+  panel      = { enabled = false },
+})
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 --vim.g.copilot_tab_fallback = ""
@@ -289,37 +298,28 @@ cmp.setup({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      -- Check if Copilot has a suggestion first
-      if vim.fn["copilot#Enabled"]() == 1 then
-        local suggestion = vim.fn["copilot#GetDisplayedSuggestion"]()
-        if suggestion and suggestion.text ~= "" then
-          return vim.fn["copilot#Accept"]("<Tab>")
-        end
-      end
-      
-      -- If no copilot suggestion, fall back to cmp
       if cmp.visible() then
         return cmp.select_next_item()
-      end
-      if luasnip.expand_or_jumpable() then
+      elseif require("copilot.suggestion").is_visible() then
+        return require("copilot.suggestion").accept()
+      elseif luasnip.expand_or_jumpable() then
         return luasnip.expand_or_jump()
+      else
+        return fallback()
       end
-      
-      return fallback()
     end, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         return cmp.select_prev_item()
+      elseif require("copilot.suggestion").jumpable(-1) then
+        return require("copilot.suggestion").jump(-1)
+      else
+        return fallback()
       end
-
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      end
-
-      return fallback()
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
+    { name = "copilot", group_index = 2 },
     { name = "nvim_lsp" },
     { name = "luasnip" },
   }, {
