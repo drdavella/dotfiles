@@ -174,3 +174,25 @@ function jql {
 }
 
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
+# uv completion
+eval "$(uv generate-shell-completion zsh)"
+
+# Enhanced uv completion for path completion in subcommands
+_uv_complete_files() {
+    local context state line
+    local -A opt_args
+    
+    if [[ $words[2] == "run" ]]; then
+        # For 'uv run', complete files after handling options
+        _arguments -C \
+            '*::command:_files' \
+            && return 0
+    else
+        # Fall back to default uv completion
+        _uv "$@"
+    fi
+}
+
+# Override the main uv completion function
+compdef _uv_complete_files uv
