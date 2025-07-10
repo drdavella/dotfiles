@@ -184,6 +184,34 @@ vim.g.copilot_assume_mapped = true
 local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+-- Configure diagnostics display
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+    spacing = 2,
+    severity_limit = "Warning", -- Only show warnings and errors
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+  float = {
+    focusable = false,
+    style = "minimal",
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
+})
+
+-- Define diagnostic signs
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
 -- LSP capabilities
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
@@ -259,6 +287,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<space>f", function()
       vim.lsp.buf.format({ async = true })
     end, opts)
+    
+    -- Diagnostic navigation and display
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+    vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+    vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
   end,
 })
 
