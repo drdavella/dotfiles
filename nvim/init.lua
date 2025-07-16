@@ -44,7 +44,13 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Whitespace settings
 vim.opt.listchars = "eol:↵,trail:~,tab:>-,nbsp:␣"
 vim.api.nvim_set_hl(0, "whiteSpaceError", { link = "Error" })
-vim.fn.matchadd("whiteSpaceError", "\\s\\+$")
+-- Use autocmd for whitespace highlighting to avoid conflicts
+vim.api.nvim_create_autocmd({"BufWinEnter", "BufRead"}, {
+  pattern = "*",
+  callback = function()
+    vim.fn.matchadd("whiteSpaceError", "\\s\\+$")
+  end,
+})
 
 -- Plugin setup with lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -69,7 +75,7 @@ require("lazy").setup({
       require("nvim-tree").setup({
         filters = {
           dotfiles = false,
-          custom = { "*.pyc", "*~" },
+          custom = {},
         },
       })
     end,
