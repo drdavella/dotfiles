@@ -152,8 +152,8 @@ function docker_run_newest {
 alias java8='$HOME/jdk8u212-b03/Contents/Home/bin/java'
 alias ghidra='$HOME/ghidra/ghidraRun'
 
-alias activate="conda activate"
-alias deactivate="conda deactivate"
+#alias activate="conda activate"
+#alias deactivate="conda deactivate"
 alias ebt="activate easybuggy-test"
 
 alias phporg="vim $HOME/org/php.org"
