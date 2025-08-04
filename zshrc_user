@@ -15,7 +15,7 @@ export AWS_PROFILE=drd
 export EDITOR="nvim"
 export PAGER="less"
 # don't clear screen after quitting less
-export LESS="$LESS -X"
+export LESS="$LESS -X -R"
 export TERM="xterm-256color"
 
 # update PATH with various useful things
