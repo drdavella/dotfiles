@@ -78,6 +78,8 @@ alias sha1='openssl sha1 '
 alias cat='bat'
 alias grep='rg'
 
+alias ipython='uv run ipython'
+
 #### git stuff
 function _checkout() {
     _last_branch=`git rev-parse --abbrev-ref HEAD`
