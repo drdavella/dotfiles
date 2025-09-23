@@ -7,6 +7,7 @@
   "cmp-path": { "branch": "main", "commit": "e52e640b7befd8113b3350f46e8cfcfe98fcf730" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "copilot.lua": { "branch": "master", "commit": "3680bebcc95dfd6c7509466367e66f6dc64a5140" },
+  "gitsigns.nvim": { "branch": "main", "commit": "f780609807eca1f783a36a8a31c30a48fbe150c5" },
   "gruvbox": { "branch": "master", "commit": "697c00291db857ca0af00ec154e5bd514a79191f" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "7815740f4d0afb74ada00956c36e18ad695ed9e3" },

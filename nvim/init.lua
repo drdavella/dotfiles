@@ -153,6 +153,30 @@ require("lazy").setup({
     end,
   },
 
+  -- Git signs
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup({
+        signs = {
+          add          = { text = '│' },
+          change       = { text = '│' },
+          delete       = { text = '_' },
+          topdelete    = { text = '‾' },
+          changedelete = { text = '~' },
+          untracked    = { text = '┆' },
+        },
+        signcolumn = true,
+        current_line_blame = false,
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = 'eol',
+          delay = 1000,
+        },
+      })
+    end,
+  },
+
   -- Colorscheme
   {
     "morhetz/gruvbox",
@@ -197,7 +221,14 @@ vim.diagnostic.config({
     spacing = 2,
     severity_limit = "Warning", -- Only show warnings and errors
   },
-  signs = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
   underline = true,
   update_in_insert = false,
   severity_sort = true,
@@ -210,13 +241,6 @@ vim.diagnostic.config({
     prefix = "",
   },
 })
-
--- Define diagnostic signs
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
 
 -- LSP capabilities
 local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -396,6 +420,15 @@ vim.keymap.set("n", ";", "<cmd>lua require('telescope.builtin').find_files()<cr>
 vim.keymap.set("n", "fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
 vim.keymap.set("n", "fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
 vim.keymap.set("n", "fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+
+-- Git signs
+vim.keymap.set("n", "]c", "<cmd>Gitsigns next_hunk<cr>")
+vim.keymap.set("n", "[c", "<cmd>Gitsigns prev_hunk<cr>")
+vim.keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<cr>")
+vim.keymap.set("n", "<leader>hb", "<cmd>Gitsigns blame_line<cr>")
+vim.keymap.set("n", "<leader>hd", "<cmd>Gitsigns diffthis<cr>")
+vim.keymap.set("n", "<leader>hs", "<cmd>Gitsigns stage_hunk<cr>")
+vim.keymap.set("n", "<leader>hr", "<cmd>Gitsigns reset_hunk<cr>")
 
 -- Commands
 vim.api.nvim_create_user_command("Vimrc", "e $HOME/.config/nvim/init.lua", {})
