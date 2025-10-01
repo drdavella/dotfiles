@@ -198,7 +198,13 @@ require("lazy").setup({
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
-  }
+  },
+
+  -- Java LSP
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+  },
 })
 
 -- Copilot configuration
