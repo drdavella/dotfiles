@@ -83,12 +83,11 @@ require("lazy").setup({
 
   -- Fuzzy finder
   {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.x",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      require("telescope").setup({
-        defaults = {
+      require("fzf-lua").setup({
+        files = {
           file_ignore_patterns = { "%.pyc$", "__pycache__" },
         },
       })
@@ -421,11 +420,11 @@ vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>")
 vim.keymap.set("n", ",n", ":NvimTreeFindFile<CR>")
 vim.keymap.set("n", "<C-X>", ":Explore<CR>")
 
--- Telescope
-vim.keymap.set("n", ";", "<cmd>lua require('telescope.builtin').find_files()<cr>")
-vim.keymap.set("n", "fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
-vim.keymap.set("n", "fb", "<cmd>lua require('telescope.builtin').buffers()<cr>")
-vim.keymap.set("n", "fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>")
+-- fzf-lua
+vim.keymap.set("n", ";", "<cmd>lua require('fzf-lua').files()<cr>")
+vim.keymap.set("n", "fg", "<cmd>lua require('fzf-lua').live_grep()<cr>")
+vim.keymap.set("n", "fb", "<cmd>lua require('fzf-lua').buffers()<cr>")
+vim.keymap.set("n", "fh", "<cmd>lua require('fzf-lua').help_tags()<cr>")
 
 -- Git signs
 vim.keymap.set("n", "]c", "<cmd>Gitsigns next_hunk<cr>")
