@@ -43,6 +43,60 @@ end
 -- Data directory for workspace
 local workspace_dir = vim.fn.stdpath('data') .. '/jdtls-workspace/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
+-- Check if project uses Spotless
+local function uses_spotless()
+  local project_root = vim.fn.getcwd()
+  local gradle_files = {
+    'build.gradle',
+    'build.gradle.kts',
+  }
+
+  for _, file in ipairs(gradle_files) do
+    local path = project_root .. '/' .. file
+    if vim.fn.filereadable(path) == 1 then
+      local content = vim.fn.readfile(path)
+      for _, line in ipairs(content) do
+        if line:match('spotless') then
+          return true
+        end
+      end
+    end
+  end
+  return false
+end
+
+-- Auto-detect project formatter settings
+local function get_formatter_settings()
+  local project_root = vim.fn.getcwd()
+
+  -- If using Spotless, disable jdtls formatting (Spotless will handle it)
+  if uses_spotless() then
+    return { enabled = false }
+  end
+
+  local settings = { enabled = true }
+
+  -- Check for Eclipse formatter XML
+  local formatter_files = {
+    '.eclipse-formatter.xml',
+    'eclipse-formatter.xml',
+    'formatter.xml',
+  }
+
+  for _, file in ipairs(formatter_files) do
+    local path = project_root .. '/' .. file
+    if vim.fn.filereadable(path) == 1 then
+      settings.settings = {
+        url = path,
+        profile = 'GoogleStyle',
+      }
+      return settings
+    end
+  end
+
+  return settings
+end
+
 -- Get capabilities from cmp-nvim-lsp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -87,8 +141,12 @@ local config = {
       references = {
         includeDecompiledSources = true,
       },
-      format = {
-        enabled = true,
+      format = get_formatter_settings(),
+      -- Use project-specific settings
+      project = {
+        referencedLibraries = {
+          'lib/**/*.jar',
+        },
       },
     },
     signatureHelp = { enabled = true },
@@ -145,3 +203,20 @@ vim.keymap.set('v', '<leader>jv', "<Esc><Cmd>lua require'jdtls'.extract_variable
 vim.keymap.set('n', '<leader>jc', "<Cmd>lua require'jdtls'.extract_constant()<CR>", opts)
 vim.keymap.set('v', '<leader>jc', "<Esc><Cmd>lua require'jdtls'.extract_constant(true)<CR>", opts)
 vim.keymap.set('v', '<leader>jm', "<Esc><Cmd>lua require'jdtls'.extract_method(true)<CR>", opts)
+
+-- Format on save with Spotless if available
+if uses_spotless() then
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    buffer = 0,
+    callback = function()
+      local file = vim.fn.expand('%:p')
+      vim.fn.jobstart('./gradlew spotlessApply -PspotlessIdeHook=' .. file, {
+        on_exit = function(_, exit_code)
+          if exit_code == 0 then
+            vim.cmd('checktime')  -- Reload file if changed
+          end
+        end,
+      })
+    end,
+  })
+end

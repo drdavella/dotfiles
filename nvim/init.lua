@@ -341,12 +341,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- Autoformat on save
+-- Autoformat on save (Java handled separately in ftplugin)
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("LspFormatting", {}),
   pattern = "*",
   callback = function()
-    vim.lsp.buf.format({ async = false })
+    -- Skip Java files (handled by ftplugin/java.lua with Spotless support)
+    if vim.bo.filetype ~= "java" then
+      vim.lsp.buf.format({ async = false })
+    end
   end,
 })
 
