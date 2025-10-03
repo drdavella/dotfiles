@@ -4,12 +4,41 @@ local jdtls = require('jdtls')
 -- Find jdtls installation (via Mason)
 local mason_path = vim.fn.stdpath('data') .. '/mason'
 local jdtls_path = mason_path .. '/packages/jdtls'
-local config_path = jdtls_path .. '/config_mac'
+
+-- Auto-detect OS and architecture for config path
+local function get_config_dir()
+  local os_name = vim.loop.os_uname().sysname
+  local arch = vim.loop.os_uname().machine
+
+  if os_name == 'Darwin' then
+    if arch == 'arm64' then
+      return 'config_mac_arm'
+    else
+      return 'config_mac'
+    end
+  elseif os_name == 'Linux' then
+    if arch:match('arm') or arch:match('aarch64') then
+      return 'config_linux_arm'
+    else
+      return 'config_linux'
+    end
+  else
+    return 'config_win'
+  end
+end
+
+local config_path = jdtls_path .. '/' .. get_config_dir()
 local lombok_path = jdtls_path .. '/lombok.jar'
 
 -- Find the jar file for jdtls
 local jar_pattern = jdtls_path .. '/plugins/org.eclipse.equinox.launcher_*.jar'
 local jar_file = vim.fn.glob(jar_pattern)
+
+-- Check if jdtls is installed
+if jar_file == '' then
+  vim.notify('jdtls not found. Install it with :MasonInstall jdtls', vim.log.levels.WARN)
+  return
+end
 
 -- Data directory for workspace
 local workspace_dir = vim.fn.stdpath('data') .. '/jdtls-workspace/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')

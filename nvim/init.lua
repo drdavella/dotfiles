@@ -112,6 +112,16 @@ require("lazy").setup({
     end,
   },
 
+  -- Mason LSP config with auto-install
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "jdtls" },
+      })
+    end,
+  },
+
 
   -- Autocompletion
   {
