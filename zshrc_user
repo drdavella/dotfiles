@@ -76,6 +76,7 @@ alias sha1='openssl sha1 '
 
 #### cool tools
 alias cat='bat'
+alias pcat='bat --style=plain'
 alias grep='rg'
 
 alias ipython='uv run ipython'
