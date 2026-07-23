@@ -123,6 +123,7 @@ alias checkout=_checkout
 alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 alias status='git status -uno'
 alias remote='git remote'
+alias reflog='git reflog'
 alias grup='git remote update --prune'
 alias gs='git status -uno'
 
