@@ -186,6 +186,15 @@ require("lazy").setup({
     end,
   },
 
+  -- Diffview
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("diffview").setup({})
+    end,
+  },
+
   -- Colorscheme
   {
     "morhetz/gruvbox",
@@ -456,6 +465,12 @@ vim.keymap.set("n", "<leader>hb", "<cmd>Gitsigns blame_line<cr>")
 vim.keymap.set("n", "<leader>hd", "<cmd>Gitsigns diffthis<cr>")
 vim.keymap.set("n", "<leader>hs", "<cmd>Gitsigns stage_hunk<cr>")
 vim.keymap.set("n", "<leader>hr", "<cmd>Gitsigns reset_hunk<cr>")
+
+-- Diffview
+vim.keymap.set("n", "<leader>dv", "<cmd>DiffviewOpen<cr>")
+vim.keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<cr>")
+vim.keymap.set("n", "<leader>dh", "<cmd>DiffviewFileHistory %<cr>")
+vim.keymap.set("n", "<leader>df", "<cmd>DiffviewFileHistory<cr>")
 
 -- Commands
 vim.api.nvim_create_user_command("Vimrc", "e $HOME/.config/nvim/init.lua", {})
