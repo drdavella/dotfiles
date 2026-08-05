@@ -1,5 +1,6 @@
 # Customized zsh aliases, etc. for danman
 #
+FPATH="$HOME/.docker/completions:$FPATH"
 autoload -Uz compinit
 compinit
 
@@ -200,6 +201,3 @@ _uv_complete_files() {
 
 # Override the main uv completion function
 compdef _uv_complete_files uv
-FPATH="$HOME/.docker/completions:$FPATH"
-autoload -Uz compinit
-compinit
