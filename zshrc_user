@@ -88,6 +88,7 @@ function _checkout() {
     git checkout $@
 }
 compdef _git _checkout=git-checkout > /dev/null
+compdef _git checkout=git-checkout > /dev/null
 
 function clb {
     if [[ ! -z $_last_branch ]]; then
